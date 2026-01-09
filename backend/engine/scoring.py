@@ -1,5 +1,6 @@
+from statistics import variance
 from typing import List, Dict, Tuple
-import numpy as np
+#import numpy as np
 
 def compute_metrics(results: List[Dict]) -> Tuple[float, float, str, Tuple[float, float, float]]:
     """
@@ -25,11 +26,14 @@ def compute_metrics(results: List[Dict]) -> Tuple[float, float, str, Tuple[float
     all_yields = [r['yield'] for r in results]
     successful_yields = [r['yield'] for r in successful_runs] if successful_runs else [0]
     
-    avg_yield = np.mean(all_yields)
-    min_yield = np.min(all_yields)
-    max_yield = np.max(all_yields)
-    yield_std = np.std(all_yields)
-    
+    avg_yield = sum(all_yields) / len(all_yields)
+    min_yield = min(all_yields)
+    max_yield = max(all_yields)
+
+    # Standard deviation (pure Python)
+    variance = sum((y - avg_yield) ** 2 for y in all_yields) / len(all_yields)
+    yield_std = variance ** 0.5
+
     # Calculate risk level based on multiple factors
     risk_level = calculate_risk_level(
         success_rate,

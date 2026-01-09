@@ -1,5 +1,5 @@
 import random
-import numpy as np
+#import numpy as np
 from typing import List, Dict, Tuple
 
 class MonteCarloSimulator:
