@@ -12,6 +12,7 @@ from utils.validators import validate_input
 from utils.weather_service import WeatherService
 
 load_dotenv()
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -31,12 +32,9 @@ def health_check():
 
 @app.route('/api/crops', methods=['GET'])
 def get_crops():
-    """Fetch all crops from Supabase"""
-    try:
-        response = supabase.table('crops').select('*').execute()
-        return jsonify(response.data)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    response = supabase.table('crops').select('*').execute()
+    return jsonify(response.data)
+
 
 @app.route('/api/crops/<crop_name>', methods=['GET'])
 def get_crop(crop_name):
