@@ -1,0 +1,956 @@
+/* ============================================
+   TerraSim - Redesigned for Human Authorship
+   Design Principles:
+   - One tall column
+   - No icons, no emojis
+   - Typography + Space
+   - Intentional asymmetry
+   - Visual uncertainty
+   - Evidence over features
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-green: #059669;
+    --primary-dark: #047857;
+    --bg-dark: #064e3b;
+    
+    --text-primary: #14532d;
+    --text-secondary: #166534;
+    --text-muted: #6b7280;
+    
+    --bg-primary: #fafaf9;
+    --bg-surface: #ffffff;
+    
+    --risk-low: #10b981;
+    --risk-medium: #f59e0b;
+    --risk-high: #ef4444;
+}
+
+body {
+    font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+/* ============================================
+   Hero - Minimal, No Decoration
+   ============================================ */
+
+.hero {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: white;
+    padding: 4rem 0 3rem;
+    transition: all 0.6s ease;
+}
+
+.container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+    font-size: 1.125rem;
+    font-weight: 300;
+    opacity: 0.9;
+    letter-spacing: 0.01em;
+}
+
+/* ============================================
+   Dashboard - Single Tall Column
+   ============================================ */
+
+.dashboard {
+    padding: 0;
+}
+
+.dashboard-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* ============================================
+   Configuration Section
+   ============================================ */
+
+.config-section {
+    background: var(--bg-surface);
+    padding: 3rem 2rem;
+    border-bottom: 1px solid rgba(5, 150, 105, 0.1);
+    transition: background 0.4s ease;
+}
+
+.section-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+}
+
+.form-block {
+    margin-bottom: 2.5rem;
+}
+
+.form-heading {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.input-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-bottom: 2px solid rgba(5, 150, 105, 0.2);
+    background: transparent;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-bottom-color: var(--primary-green);
+}
+
+.input-field::placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.location-info {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(5, 150, 105, 0.05);
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.location-name {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.weather-mini {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.field-hint {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    display: block;
+}
+
+.crop-info {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(5, 150, 105, 0.03);
+    border-radius: 4px;
+}
+
+.crop-info #cropDescription {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.crop-requirements {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.req-item {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0;
+}
+
+.req-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.recommendation-badge {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(239, 68, 68, 0.05);
+    border-left: 3px solid var(--risk-high);
+}
+
+.recommendation-badge strong {
+    display: block;
+    font-weight: 600;
+    color: var(--risk-high);
+    margin-bottom: 0.25rem;
+}
+
+.recommendation-badge p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* Button - Minimal, Typography-Focused */
+.btn-simulate {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.01em;
+}
+
+.btn-simulate:hover {
+    background: var(--primary-dark);
+}
+
+/* ============================================
+   Preview Section - Evidence, Not Features
+   ============================================ */
+
+.preview-section {
+    background: var(--bg-surface);
+    padding: 4rem 2rem;
+    border-bottom: 1px solid rgba(5, 150, 105, 0.1);
+}
+
+.statement-block {
+    margin-bottom: 3rem;
+}
+
+.statement-primary {
+    font-family: 'Crimson Pro', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.statement-secondary {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--text-muted);
+}
+
+.evidence-list {
+    margin-bottom: 3rem;
+    padding-left: 0;
+}
+
+.evidence-list p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-weight: 400;
+}
+
+.evidence-list p::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--primary-green);
+    font-weight: 300;
+}
+
+.disclaimer {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    font-weight: 400;
+    max-width: 480px;
+}
+
+/* ============================================
+   Simulation Section
+   ============================================ */
+
+.simulation-section {
+    background: var(--bg-surface);
+    padding: 4rem 2rem;
+    border-bottom: 1px solid rgba(5, 150, 105, 0.1);
+}
+
+.counter-block {
+    margin-bottom: 2rem;
+}
+
+.counter-value {
+    font-family: 'Crimson Pro', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--primary-green);
+    letter-spacing: -0.02em;
+}
+
+.counter-label {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+    font-weight: 300;
+}
+
+/* Progress with Visual Uncertainty */
+.progress-container {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.progress-bar {
+    height: 4px;
+    background: rgba(5, 150, 105, 0.1);
+    position: relative;
+    overflow: visible;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-green);
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+/* Visual uncertainty - jittered overlay */
+.progress-uncertainty {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(5, 150, 105, 0.1) 0px,
+        rgba(5, 150, 105, 0.3) 2px,
+        rgba(5, 150, 105, 0.1) 4px
+    );
+    animation: jitter 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes jitter {
+    0%, 100% { transform: translateX(0) scaleY(1); opacity: 0.3; }
+    50% { transform: translateX(2px) scaleY(1.2); opacity: 0.5; }
+}
+
+.activity-feed {
+    margin-top: 2rem;
+}
+
+.activity-item {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    padding: 0.5rem 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-weight: 400;
+}
+
+.activity-item.active {
+    opacity: 1;
+}
+
+/* ============================================
+   Results Section - Asymmetric, Evidence-Based
+   ============================================ */
+
+.results-section {
+    background: var(--bg-surface);
+    padding: 4rem 2rem;
+}
+
+/* Main Statement - Large, Left-Aligned, Asymmetric */
+.main-statement {
+    margin-bottom: 4rem;
+    padding-left: 0;
+}
+
+.probability-large {
+    font-family: 'Crimson Pro', serif;
+    font-size: 7rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    position: relative;
+}
+
+.prob-unit {
+    font-size: 3rem;
+    color: var(--text-muted);
+    margin-left: 0.25rem;
+}
+
+.statement-context {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--text-primary);
+    font-weight: 400;
+    max-width: 520px;
+    margin-left: 2rem;
+}
+
+.override-warning {
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(239, 68, 68, 0.08);
+    border-left: 4px solid var(--risk-high);
+    color: var(--risk-high);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.warning-icon {
+    font-size: 1.5rem;
+}
+
+/* Evidence Block - Research-Like */
+.evidence-block {
+    margin-bottom: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(5, 150, 105, 0.15);
+}
+
+.evidence-label {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.evidence-snippets {
+    margin-left: 1.5rem;
+}
+
+.evidence-snippet {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+/* Chart with Uncertainty Overlay */
+.chart-block {
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.chart-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(5, 150, 105, 0.02) 0px,
+        rgba(5, 150, 105, 0.08) 1px,
+        rgba(5, 150, 105, 0.02) 2px,
+        transparent 2px,
+        transparent 20px
+    );
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* Chart Label */
+.chart-label {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+/* Yield Block - Enhanced */
+.yield-block {
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: rgba(5, 150, 105, 0.03);
+    border-radius: 8px;
+}
+
+.yield-main {
+    margin-bottom: 1.5rem;
+}
+
+.yield-primary {
+    font-family: 'Crimson Pro', serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.yield-value {
+    font-weight: 300;
+}
+
+.yield-unit {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.yield-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.yield-range {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(5, 150, 105, 0.15);
+}
+
+.range-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.range-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.range-value {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+/* Risk Block - Human Language */
+.risk-block {
+    margin-bottom: 3rem;
+}
+
+.risk-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.risk-explanation {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    max-width: 520px;
+}
+
+.risk-chart-container {
+    margin-top: 2rem;
+    position: relative;
+    opacity: 0.9;
+}
+
+/* Explanation Block */
+.explanation-block {
+    margin-bottom: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(5, 150, 105, 0.15);
+    border-bottom: 1px solid rgba(5, 150, 105, 0.15);
+}
+
+.explanation-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.explanation-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.btn-reset {
+    padding: 1rem 2rem;
+    background: transparent;
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-reset:hover {
+    background: var(--primary-green);
+    color: white;
+}
+
+.btn-secondary {
+    padding: 1rem 2rem;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--text-muted);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--text-muted);
+    color: white;
+}
+
+/* ============================================
+   Error Section
+   ============================================ */
+
+.error-section {
+    background: var(--bg-surface);
+    padding: 4rem 2rem;
+}
+
+.error-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--risk-high);
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   History Modal
+   ============================================ */
+
+.history-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal-content {
+    background: var(--bg-surface);
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(5, 150, 105, 0.1);
+}
+
+.modal-header h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 2rem;
+    max-height: calc(90vh - 100px);
+    overflow-y: auto;
+}
+
+.history-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.history-item {
+    padding: 1.5rem;
+    border: 1px solid rgba(5, 150, 105, 0.15);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.history-item:hover {
+    border-color: rgba(5, 150, 105, 0.3);
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.1);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.history-header strong {
+    font-size: 1.125rem;
+    color: var(--text-primary);
+}
+
+.history-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.history-details {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+
+.history-results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(5, 150, 105, 0.1);
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.result-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.result-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.result-value.risk-low {
+    color: var(--risk-low);
+}
+
+.result-value.risk-medium {
+    color: var(--risk-medium);
+}
+
+.result-value.risk-high {
+    color: var(--risk-high);
+}
+
+.override-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--risk-high);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.loading-text,
+.no-data,
+.error-text {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .config-section,
+    .preview-section,
+    .simulation-section,
+    .results-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .probability-large {
+        font-size: 4.5rem;
+    }
+    
+    .statement-context {
+        font-size: 1.25rem;
+        margin-left: 0;
+    }
+    
+    .yield-block {
+        padding: 1.5rem;
+    }
+    
+    .yield-primary {
+        font-size: 2.5rem;
+    }
+    
+    .yield-range {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .history-results {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-buttons button {
+        width: 100%;
+    }
+    
+    .modal-content {
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    .history-modal {
+        padding: 1rem;
+    }
+}

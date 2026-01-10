@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraSim — Simulation-Driven Climate Risk</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Editorial Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-brand">TerraSim</h1>
+            <span class="nav-tagline">Climate Risk Engine</span>
+        </div>
+    </nav>
+
+    <!-- Two-Column Layout -->
+    <main class="workspace">
+        <!-- LEFT COLUMN: Context & Configuration -->
+        <aside class="context-panel">
+            <div class="context-content">
+                <!-- Introduction -->
+                <div class="intro-block">
+                    <h2 class="intro-heading">Before you plant</h2>
+                    <p class="intro-text">
+                        We run 10,000 randomized climate scenarios for your chosen location and crop. 
+                        You get a probability distribution, not a single prediction. 
+                        The model accounts for rainfall variance, temperature extremes, pest events, and terrain penalties.
+                    </p>
+                    <p class="intro-note">
+                        This is not a recommendation engine. It shows you what <em>could</em> happen, 
+                        based on environmental mismatch and stochastic sampling.
+                    </p>
+                </div>
+
+                <!-- Scenario Configuration -->
+                <form id="simulationForm" class="scenario-config">
+                    <!-- Location -->
+                    <div class="form-block">
+                        <h3 class="form-heading">Where are you planting?</h3>
+                        
+                        <div class="form-group">
+                            <label for="latitude" class="input-label">Latitude</label>
+                            <input 
+                                type="number" 
+                                id="latitude" 
+                                name="latitude" 
+                                placeholder="e.g., 40.7128" 
+                                step="any" 
+                                required
+                                min="-90"
+                                max="90"
+                                class="input-field"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="longitude" class="input-label">Longitude</label>
+                            <input 
+                                type="number" 
+                                id="longitude" 
+                                name="longitude" 
+                                placeholder="e.g., -74.0060" 
+                                step="any" 
+                                required
+                                min="-180"
+                                max="180"
+                                class="input-field"
+                            >
+                        </div>
+
+                        <div id="locationInfo" class="location-info" style="display: none;">
+                            <span class="location-name" id="locationName">--</span>
+                            <div class="weather-mini" id="weatherMini">--</div>
+                        </div>
+                    </div>
+
+                    <!-- Terrain Selection -->
+                    <div class="form-block">
+                        <h3 class="form-heading">The land itself matters</h3>
+                        
+                        <div class="form-group">
+                            <label for="terrain" class="input-label">Terrain Type</label>
+                            <select id="terrain" name="terrain" required class="input-field">
+                                <option value="">-- Select --</option>
+                                <option value="plain">Plain</option>
+                                <option value="plateau">Plateau</option>
+                                <option value="mountain">Mountain</option>
+                                <option value="valley">Valley</option>
+                                <option value="coastal">Coastal</option>
+                            </select>
+                            <p class="field-hint" id="terrainHint"></p>
+                        </div>
+                    </div>
+
+                    <!-- Crop Selection -->
+                    <div class="form-block">
+                        <h3 class="form-heading">What are you trying to grow?</h3>
+                        
+                        <div class="form-group">
+                            <label for="crop" class="input-label">Choose Crop</label>
+                            <select id="crop" name="crop" required class="input-field">
+                                <option value="">-- Select --</option>
+                                <option value="Wheat">Wheat</option>
+                                <option value="Rice">Rice</option>
+                                <option value="Corn (Maize)">Corn (Maize)</option>
+                                <option value="Soybean">Soybean</option>
+                                <option value="Cotton">Cotton</option>
+                                <option value="Potato">Potato</option>
+                                <option value="Tomato">Tomato</option>
+                                <option value="Sugarcane">Sugarcane</option>
+                                <option value="Groundnut (Peanut)">Groundnut (Peanut)</option>
+                                <option value="Sunflower">Sunflower</option>
+                            </select>
+                            
+                            <div id="cropInfo" class="crop-info" style="display: none;">
+                                <p id="cropDescription">--</p>
+                                <div class="crop-requirements" id="cropRequirements"></div>
+                            </div>
+                            
+                            <div id="recommendationBadge" class="recommendation-badge" style="display: none;">
+                                <strong>Override Warning</strong>
+                                <p>This crop may not suit this location. We'll show you the risk.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-simulate" id="submitBtn">
+                        Run 10,000 Monte Carlo Scenarios
+                    </button>
+                </form>
+            </section>
+
+                <!-- Context Footer -->
+                <div class="context-footer">
+                    <h3 class="footer-heading">What happens next</h3>
+                    <ul class="expectation-list">
+                        <li>A success probability derived from 10,000 stochastic runs</li>
+                        <li>Yield estimates showing variance, not false precision</li>
+                        <li>Analysis of what causes failure: water stress, heat, pests</li>
+                    </ul>
+                    <p class="context-disclaimer">
+                        The model doesn't recommend. It exposes risk. Your judgment matters.
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT COLUMN: Results & Analysis -->
+        <section class="results-panel">
+            <div id="simulationState" class="thinking-state" style="display: none;">
+                <div class="thinking-content">
+                    <h2 class="thinking-title">Simulating seasons...</h2>
+                    <p class="thinking-subtitle">This takes a moment. We're running through thousands of possible futures.</p>
+                    
+                    <div class="scenario-progress">
+                        <span class="scenario-count" id="scenarioCounter">0</span>
+                        <span class="scenario-total">of 10,000 scenarios</span>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-bar" id="progressFill"></div>
+                        <div class="progress-ghost"></div>
+                    </div>
+
+                    <div class="thinking-feed">
+                        <p class="thinking-step" id="activity1"></p>
+                        <p class="thinking-step" id="activity2"></p>
+                        <p class="thinking-step" id="activity3"></p>
+                        <p class="thinking-step" id="activity4"></p>
+                        <p class="thinking-step" id="activity5"></p>
+                    </div>
+
+                    <p class="thinking-note">
+                        Each run randomizes rainfall, temperature shifts, pest events, and drought risk.
+                        The variation is what matters — not the average.
+                    </p>
+                </div>
+            </div>
+
+                <div class="activity-feed">
+                    <div class="activity-item" id="activity1"></div>
+                    <div class="activity-item" id="activity2"></div>
+                    <div class="activity-item" id="activity3"></div>
+                    <div class="activity-item" id="activity4"></div>
+             div id="resultsState" class="results-active" style="display: none;">
+                
+                <!-- Observation Summary -->
+                <div class="observation">
+                    <div class="obs-probability">
+                        <span id="successProbability" class="prob-number">--</span>
+                        <span class="prob-percent">%</span>
+                        <span class="prob-label">success rate</span>
+                    </div>
+                    <p class="obs-statement" id="mainStatement">--</p>
+                    
+                    <div id="overrideWarning" class="mismatch-flag" style="display: none;">
+                        <strong>Environmental mismatch scenario</strong>
+                    </div>
+                </div>
+
+                <!-- Yield Analysis -->
+                <div class="yield-analysis">
+                    <div class="yield-primary-stat">
+                        <span id="expectedYield" class="yield-number">--</span>
+                        <span class="yield-unit">kg/ha</span>
+                        <span class="yield-descriptor">expected yield</span>
+                    </div>
+                    
+                    <div class="yield-range-display">
+                        <div class="range-stat">
+                            <span class="range-val" id="minYield">--</span>
+                            <span class="range-lbl">minimum</span>
+                        </div>
+                        <div class="range-stat">
+                            <span class="range-val" id="maxYield">--</span>
+                            <span class="range-lbl">maximum</span>
+                        </div>
+                        <div class="range-stat">
+                            <span class="range-val" id="yieldVariance">--</span>
+                            <span class="range-lbl">variance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Probability Distribution -->
+                <div class="chart-section">
+                    <h3 class="chart-heading">How often does this actually work?</h3>
+                    <p class="chart-caption">10,000 stochastic futures, sampled independently</p>
+                    <div class="chart-container">
+                        <canvas id="distributionChart"></canvas>
+                        <div class="chart-uncertainty-layer"></div>
+                    </div>
+                </div>
+
+                <!-- Explanation -->
+                <div class="interpretation">
+                    <h3 class="interp-heading">Why it might fail</h3>
+                    <p id="detailedExplanation" class="interp-text">--</p>
+                    
+                    <div class="evidence-points">
+                        <p id="evidence1" class="evidence-point">--</p>
+                        <p id="evidence2" class="evidence-point">--</p>
+                        <p id="evidence3" class="evidence-point">--</p>
+                    </div>
+                </div>
+
+                <!-- Failure Drivers -->
+                <div class="failure-analysis">
+                    <h3 class="failure-heading">What drives failure</h3>
+                    <p id="riskExplanation" class="failure-note">--</p>
+                    <div class="failure-chart-wrap">
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="results-footer">
+                    <button class="reset-button" id="resetBtn">Run another scenario</button>
+                    <button class="history-button" id="viewHistoryBtn">View past runs</button>
+                </div>
+            </div
+                <div class="action-buttons">
+                    <button class="btn-reset" id="resetBtn">Run Another Simulation</button>
+                    <button class="btn-secondary" id="viewHistoryBtn">View History</button>
+             div id="errorState" class="error-display" style="display: none;">
+                <h3 class="error-title">Simulation failed</h3>
+                <p class="error-detail" id="errorText">--</p>
+                <button class="reset-button" id="retryBtn">Retry</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="history-overlay" style="display: none;">
+        <div class="history-panel">
+            <div class="history-header">
+                <h2 class="history-title">Simulation history</h2>
+                <button class="history-close" id="closeHistoryBtn">&times;</button>
+            </div>
+            <div class="history-content" id="historyList">
+                <p class="history-loading">Loading previous runs...</p>
+            </div>
+        </div>
+    </div      </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
