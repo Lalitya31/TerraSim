@@ -14,6 +14,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+---
+
+### Connection behavior
+This frontend now auto-connects to the backend on load (default endpoint: `http://localhost:5000` or the `REACT_APP_API_ENDPOINT` env var). The UI no longer exposes the API endpoint input — the connection runs in the background and retries with exponential backoff if it cannot reach the backend. A small status indicator in the header shows whether the connection is live and offers a discreet "Retry" action if necessary.
+
+### Background photo
+To use a custom photo like the one you uploaded, place the image file at `frontend/public/bg-photo.jpg`. The app will automatically use `bg-photo.jpg` for the page background (with an elegant warm overlay). If the file is not present, the UI falls back to the existing `bg-farm.svg` decorative background.
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
